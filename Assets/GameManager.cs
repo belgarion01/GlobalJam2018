@@ -11,10 +11,10 @@ public class GameManager : MonoBehaviour {
 	public float scrollSpeed;
 	public int startingLivesAmount;
 
-	public Vector2 swordCooldown;
-	public Vector2 shieldCooldown;
-	public Vector2 bowCooldown;
-	public Vector2 pillCooldown;
+	public Vector3 swordCooldown;
+	public Vector3 shieldCooldown;
+	public Vector3 bowCooldown;
+	public Vector3 pillCooldown;
 
 	[HideInInspector]
 	public int actualLives;
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	public static Vector2 GetWeaponCooldown(Weapon weapon) {
+	public static Vector3 GetWeaponCooldown(Weapon weapon) {
 		if (!Instance) {
 			return Vector2.zero;
 		}

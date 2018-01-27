@@ -50,9 +50,15 @@ public class PlayerController : MonoBehaviour {
 	void Update() {
 		if (actualWeaponCooldown > 0) {
 			actualWeaponCooldown = Mathf.Max(0, actualWeaponCooldown - Time.deltaTime);
-			if (actualWeaponCooldown <= GameManager.GetWeaponCooldown(activeWeapon).y) {
+			Vector3 weaponCooldown = GameManager.GetWeaponCooldown(activeWeapon);
+			isUsingWeapon = false;
+			if (actualWeaponCooldown <= weaponCooldown.y + weaponCooldown.z) {
+				isUsingWeapon = true;
+			}
+			if (actualWeaponCooldown <= weaponCooldown.z) {
 				isUsingWeapon = false;
 			}
+
 		}
 		if (actualInvincibilityCooldown > 0) {
 			if (Time.frameCount % 5 == 0) {
@@ -108,8 +114,8 @@ public class PlayerController : MonoBehaviour {
 		if (isSwapping) {
 			isSwapping = false;
 		}
-		isUsingWeapon = true;
-		actualWeaponCooldown = GameManager.GetWeaponCooldown(activeWeapon).x + GameManager.GetWeaponCooldown(activeWeapon).y;
+		Vector3 weaponCooldown = GameManager.GetWeaponCooldown(activeWeapon);
+		actualWeaponCooldown = weaponCooldown.x + weaponCooldown.y + weaponCooldown.z;
 		switch (activeWeapon) {
 			case Weapon.WEAPON_SWORD: UseSword(); break;
 			case Weapon.WEAPON_SHIELD: UseShield(); break;

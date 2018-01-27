@@ -1342,10 +1342,10 @@ MonoBehaviour:
   dynamicObjects: {fileID: 1458940496}
   scrollSpeed: 3
   startingLivesAmount: 5
-  swordCooldown: {x: 0, y: 0}
-  shieldCooldown: {x: 1, y: 1}
-  bowCooldown: {x: 0, y: 0}
-  pillCooldown: {x: 0, y: 0}
+  swordCooldown: {x: 0.2, y: 0.2, z: 1}
+  shieldCooldown: {x: 2, y: 2, z: 2}
+  bowCooldown: {x: 0, y: 0, z: 0}
+  pillCooldown: {x: 0, y: 0, z: 0}
   actualLives: 0
 --- !u!4 &1390677749
 Transform:
