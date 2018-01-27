@@ -28,18 +28,57 @@ public class PlayerController : MonoBehaviour {
 
 	public float movementDuration = 0.5f;
 
+	public float invincibilityDuration;
+	private float actualInvincibilityCooldown;
+
 	[HideInInspector]
 	public bool isSwapping;
+	//[HideInInspector]
+	public bool canSwap { get {return actualWeaponCooldown <= 0 && !isMoving;} }
+	[HideInInspector]
+	public bool isInvincible { get {return actualInvincibilityCooldown > 0;} }
+	//[HideInInspector]
+	public bool isUsingWeapon;
+	//[HideInInspector]
+	public bool canUseWeapon { get {return actualWeaponCooldown <= 0 && !isMoving;} }
+	
+	private float actualWeaponCooldown;
 
 	[HideInInspector]
 	public bool isMoving = false;
 
 	void Update() {
+		if (actualWeaponCooldown > 0) {
+			actualWeaponCooldown = Mathf.Max(0, actualWeaponCooldown - Time.deltaTime);
+			if (actualWeaponCooldown <= GameManager.GetWeaponCooldown(activeWeapon).y) {
+				isUsingWeapon = false;
+			}
+		}
+		if (actualInvincibilityCooldown > 0) {
+			if (Time.frameCount % 5 == 0) {
+				bottomSprite.enabled = !bottomSprite.enabled;
+				topSprite.enabled = !topSprite.enabled;
+			}
+			
+			actualInvincibilityCooldown = Mathf.Max(0, actualInvincibilityCooldown - Time.deltaTime);
+			if (actualInvincibilityCooldown <= 0) {
+				bottomSprite.enabled = true;
+				topSprite.enabled = true;
+			}
+		}
+		
 		if (Input.GetKeyDown(weaponButton)) {
 			UseWeapon();
 		}
 		if (Input.GetKeyDown(swapButton)) {
-			isSwapping = !isSwapping;
+			if (!isSwapping) {
+				if (canSwap) {
+					isSwapping = true;
+				} 
+			}
+			else {
+				isSwapping = false;
+			}
 		}
 		if (Input.GetKeyDown(upButton)) {
 			MoveUp();
@@ -47,9 +86,30 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKeyDown(downButton)) {
 			MoveDown();
 		}
+
+		if (isUsingWeapon && activeWeapon == Weapon.WEAPON_SHIELD) {
+			Collider2D coll = Physics2D.OverlapBox(transform.position + new Vector3(1, 0, 0), Vector2.one, 0);
+			if (coll && coll.tag == "EnnemyProjectile" && coll.GetComponent<Enemy>().lane == lane) {
+				Destroy(coll.gameObject);
+			}
+		}
+		if (isUsingWeapon && activeWeapon == Weapon.WEAPON_SWORD) {
+			Collider2D coll = Physics2D.OverlapBox(transform.position + new Vector3(1, 0, 0), Vector2.one, 0);
+			if (coll && coll.tag == "Ennemy" && coll.GetComponent<Enemy>().lane == lane) {
+				Destroy(coll.gameObject);
+			}
+		}
 	}
 
 	public void UseWeapon() {
+		if (!canUseWeapon) {
+			return;
+		}
+		if (isSwapping) {
+			isSwapping = false;
+		}
+		isUsingWeapon = true;
+		actualWeaponCooldown = GameManager.GetWeaponCooldown(activeWeapon).x + GameManager.GetWeaponCooldown(activeWeapon).y;
 		switch (activeWeapon) {
 			case Weapon.WEAPON_SWORD: UseSword(); break;
 			case Weapon.WEAPON_SHIELD: UseShield(); break;
@@ -99,12 +159,21 @@ public class PlayerController : MonoBehaviour {
 		bottomSprite.sortingOrder = GameManager.Instance.lanes.IndexOf(newLane);
 	}
 
-	private void UseSword() {}
+	void UseSword() { }
 
-	private void UseShield() {}
+	void UseShield() { }
 
-	private void UseBow() {}
+	void UseBow() { }
 
-	private void UsePill() {}
+	void UsePill() { }
+
+	void OnTriggerEnter2D(Collider2D collider) {
+		if (collider.tag.Contains("Ennemy") && collider.GetComponent<Enemy>().lane == lane) {
+			if (!isInvincible) {
+				GameManager.Instance.actualLives -= 1;
+				actualInvincibilityCooldown = invincibilityDuration;
+			}
+		}
+	}
 
 }

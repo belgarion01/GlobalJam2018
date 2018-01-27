@@ -140,7 +140,16 @@ MonoBehaviour:
   topSprite: {fileID: 212993167208394954}
   bottomSprite: {fileID: 212285147704827532}
   weaponButton: 0
+  swapButton: 0
+  upButton: 0
+  downButton: 0
+  lane: {fileID: 0}
   activeWeapon: 3
+  movementDuration: 0.5
+  invincibilityDuration: 1.5
+  isSwapping: 0
+  isInvincible: 0
+  isMoving: 0
 --- !u!212 &212285147704827532
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -9,6 +9,15 @@ public class GameManager : MonoBehaviour {
 	public List<LaneController> lanes;
 	public Transform dynamicObjects;
 	public float scrollSpeed;
+	public int startingLivesAmount;
+
+	public Vector2 swordCooldown;
+	public Vector2 shieldCooldown;
+	public Vector2 bowCooldown;
+	public Vector2 pillCooldown;
+
+	[HideInInspector]
+	public int actualLives;
 
 	private void Awake() {
 		if (Instance != null && Instance != this) {
@@ -38,9 +47,14 @@ public class GameManager : MonoBehaviour {
 				}
 			}
 		}
+
+		if (actualLives <= 0) {
+			Debug.Log("dead");
+		}
 	}
 
 	public void InitializeGame() {
+		actualLives = startingLivesAmount;
 		for (int i=0; i< players.Count; i++) {
 			PlayerController player = players[i];
 			player.transform.position = lanes[i].transform.position + new Vector3(0, player.transform.localScale.y/2, 0);
@@ -48,6 +62,19 @@ public class GameManager : MonoBehaviour {
 			lanes[i].player = player;
 			player.topSprite.sortingOrder = i;
 			player.bottomSprite.sortingOrder = i;
+		}
+	}
+
+	public static Vector2 GetWeaponCooldown(Weapon weapon) {
+		if (!Instance) {
+			return Vector2.zero;
+		}
+		switch (weapon) {
+			case Weapon.WEAPON_BOW: return Instance.bowCooldown; 
+			case Weapon.WEAPON_SWORD: return Instance.swordCooldown;
+			case Weapon.WEAPON_SHIELD: return Instance.shieldCooldown;
+			case Weapon.WEAPON_PILL: return Instance.pillCooldown; 
+			default: return Vector2.zero;
 		}
 	}
 

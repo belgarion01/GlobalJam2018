@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class SpawnerController : MonoBehaviour {
 
-	public List<Transform> spawnPositions;
-
 	public Vector2 spawnCooldownMinMax;
 	private float actualCooldown;
 
@@ -25,8 +23,16 @@ public class SpawnerController : MonoBehaviour {
 		}
 	}
 
-	void SpawnObject(GameObject prefab, Transform lane) {
-		Instantiate(prefab, lane.position + new Vector3(0, prefab.transform.localScale.y/2, 0), Quaternion.identity, GameManager.Instance.dynamicObjects);
+	void SpawnObject(GameObject prefab, LaneController lane) {
+		GameObject newObject = Instantiate(prefab, lane.transform.position + new Vector3(20, prefab.transform.localScale.y/2, 0), Quaternion.identity, GameManager.Instance.dynamicObjects);
+		Enemy enemy = newObject.GetComponent<Enemy>();
+		enemy.lane = lane;
+		List<SpriteRenderer> renderers = enemy.renderers;
+		int lineIndex = GameManager.Instance.lanes.IndexOf(lane);
+		
+		foreach (SpriteRenderer sprite in renderers) {
+			sprite.sortingOrder = lineIndex;
+		}
 	}
 
 	GameObject GetSpawningPrefab() {
@@ -41,8 +47,8 @@ public class SpawnerController : MonoBehaviour {
 		}
 	}
 
-	Transform GetSpawnPosition() {
-		return spawnPositions[Random.Range(0, spawnPositions.Count)].transform;
+	LaneController GetSpawnPosition() {
+		return GameManager.Instance.lanes[Random.Range(0, GameManager.Instance.lanes.Count)];
 	}
 
 }

@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NormalGuyController : MonoBehaviour {
+public class NormalGuyController : Enemy {
 
-	public float additionnalMoveSpeed;
+	public float additionalMoveSpeed;
 
 	void Awake() {
 
 	}
 
 	void Update() {
-		transform.position -= new Vector3((GameManager.Instance.scrollSpeed + additionnalMoveSpeed) * Time.deltaTime, 0, 0);
+		transform.position -= new Vector3((GameManager.Instance.scrollSpeed + additionalMoveSpeed) * Time.deltaTime, 0, 0);
 		if (transform.position.x < -20) {
 			Destroy(gameObject);
 		}

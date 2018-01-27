@@ -19,11 +19,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4780329631781696}
-  - component: {fileID: 114026493835103796}
   - component: {fileID: 61469956217033522}
+  - component: {fileID: 114590550330785614}
   m_Layer: 0
   m_Name: RangedGuy
-  m_TagString: Player
+  m_TagString: Ennemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,7 +126,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114026493835103796
+--- !u!114 &114590550330785614
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -134,20 +134,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1391115082519480}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec738c1fc699b0c44be1bd6efdb4b5a1, type: 3}
+  m_Script: {fileID: 11500000, guid: a6e9cd9a3ab24bf41be13693087aa0a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topSprite: {fileID: 212630931552719920}
-  bottomSprite: {fileID: 212453957199986308}
-  weaponButton: 100
-  swapButton: 113
-  upButton: 122
-  downButton: 115
+  renderers:
+  - {fileID: 212630931552719920}
+  - {fileID: 212453957199986308}
   lane: {fileID: 0}
-  activeWeapon: 1
-  movementDuration: 0.3
-  isSwapping: 0
-  isMoving: 0
+  additionalMoveSpeed: 2
+  waitDurationBeforeFire: 1
+  waitDurationAfterFire: 1
+  waitDurationBeforeChangingLane: 1
+  waitDurationAfterChangingLane: 1
+  changingLaneDuration: 1
+  backwardDistance: 8
+  forwardDistance: 12
+  projectilePrefab: {fileID: 1292217931844930, guid: 2a1feeb463da18c42834291ab2abf0ce,
+    type: 2}
 --- !u!212 &212453957199986308
 SpriteRenderer:
   m_ObjectHideFlags: 1

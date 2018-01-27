@@ -19,12 +19,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4368335468962212}
-  - component: {fileID: 114893441315075096}
   - component: {fileID: 61207891266737738}
   - component: {fileID: 114024288989503824}
   m_Layer: 0
   m_Name: Pole
-  m_TagString: Player
+  m_TagString: Ennemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -138,28 +137,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f319e7bb29e123409b24bf8418adc19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114893441315075096
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1102662722582114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec738c1fc699b0c44be1bd6efdb4b5a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  topSprite: {fileID: 212971609311399042}
-  bottomSprite: {fileID: 212175681106003558}
-  weaponButton: 100
-  swapButton: 113
-  upButton: 122
-  downButton: 115
+  renderers:
+  - {fileID: 212971609311399042}
+  - {fileID: 212175681106003558}
   lane: {fileID: 0}
-  activeWeapon: 1
-  movementDuration: 0.3
-  isSwapping: 0
-  isMoving: 0
 --- !u!212 &212175681106003558
 SpriteRenderer:
   m_ObjectHideFlags: 1
