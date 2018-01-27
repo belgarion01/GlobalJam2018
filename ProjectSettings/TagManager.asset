@@ -43,3 +43,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 3271065977
+    locked: 0
+  - name: HautCorps
+    uniqueID: 4074667673
+    locked: 0
+  - name: BasCorps
+    uniqueID: 1230985891
+    locked: 0
+  - name: Players
+    uniqueID: 3092573577
+    locked: 0
