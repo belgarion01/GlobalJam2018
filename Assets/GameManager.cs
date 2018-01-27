@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
 	public Transform dynamicObjects;
 	public float scrollSpeed;
 	public int startingLivesAmount;
-
+	public CameraController cam;
 	public Vector3 swordCooldown;
 	public Vector3 shieldCooldown;
 	public Vector3 bowCooldown;
@@ -84,6 +84,10 @@ public class GameManager : MonoBehaviour {
 		player2.activeWeapon = temp;
 		player1.isSwapping = false;
 		player2.isSwapping = false;
+	}
+
+	public static void Screenshake(float intensity, float duration) {
+		Instance.cam.Screenshake(intensity, duration);
 	}
 
 }

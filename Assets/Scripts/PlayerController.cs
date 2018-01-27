@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour {
 
 	public SpriteRenderer topSprite;
 	public SpriteRenderer bottomSprite;
+	public GameObject arrowPrefab;
 
 	public KeyCode weaponButton;
 	public KeyCode swapButton;
@@ -58,7 +59,6 @@ public class PlayerController : MonoBehaviour {
 			if (actualWeaponCooldown <= weaponCooldown.z) {
 				isUsingWeapon = false;
 			}
-
 		}
 		if (actualInvincibilityCooldown > 0) {
 			if (Time.frameCount % 5 == 0) {
@@ -169,7 +169,18 @@ public class PlayerController : MonoBehaviour {
 
 	void UseShield() { }
 
-	void UseBow() { }
+	void UseBow() {
+		DOVirtual.DelayedCall(GameManager.GetWeaponCooldown(activeWeapon).x, () => {
+			ArrowController arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity, GameManager.Instance.dynamicObjects).GetComponent<ArrowController>();
+			arrow.lane = lane;
+			List<SpriteRenderer> renderers = arrow.renderers;
+			int lineIndex = GameManager.Instance.lanes.IndexOf(lane);
+			
+			foreach (SpriteRenderer sprite in renderers) {
+				sprite.sortingOrder = lineIndex;
+			}
+		});
+	 }
 
 	void UsePill() { }
 
@@ -177,6 +188,7 @@ public class PlayerController : MonoBehaviour {
 		if (collider.tag.Contains("Ennemy") && collider.GetComponent<Enemy>().lane == lane) {
 			if (!isInvincible) {
 				GameManager.Instance.actualLives -= 1;
+				GameManager.Screenshake(0.3f, 1);
 				actualInvincibilityCooldown = invincibilityDuration;
 			}
 		}
