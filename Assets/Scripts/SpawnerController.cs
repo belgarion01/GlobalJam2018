@@ -4,18 +4,45 @@ using UnityEngine;
 
 public class SpawnerController : MonoBehaviour {
 
-	void Awake() {}
+	public List<Transform> spawnPositions;
 
-	void Start() {}
-	
-	void Update() {}
+	public Vector2 spawnCooldownMinMax;
+	private float actualCooldown;
 
-	void LateUpdate() {}
+	public GameObject normalGuyPrefab;
+	public GameObject rangedGuyPrefab;
+	public GameObject polePrefab;
 
-	void FixedUpdate() {}
+	void Awake() {
+		actualCooldown = Random.Range(spawnCooldownMinMax.x, spawnCooldownMinMax.y);
+	}
 
-	void OnTriggerEnter(Collider collider) {}
+	void Update() {
+		actualCooldown -= Time.deltaTime;
+		if (actualCooldown <= 0) {
+			SpawnObject(GetSpawningPrefab(), GetSpawnPosition());
+			actualCooldown = Random.Range(spawnCooldownMinMax.x, spawnCooldownMinMax.y);
+		}
+	}
 
-	void OnCollisionEnter(Collision collision) {}
+	void SpawnObject(GameObject prefab, Transform lane) {
+		Instantiate(prefab, lane.position + new Vector3(0, prefab.transform.localScale.y/2, 0), Quaternion.identity, GameManager.Instance.dynamicObjects);
+	}
+
+	GameObject GetSpawningPrefab() {
+		switch (Random.Range(0, 3)) {
+			case 0: 
+				return normalGuyPrefab;
+			case 1: 
+				return rangedGuyPrefab;
+			case 2: 
+				return polePrefab;
+			default: return polePrefab;
+		}
+	}
+
+	Transform GetSpawnPosition() {
+		return spawnPositions[Random.Range(0, spawnPositions.Count)].transform;
+	}
 
 }
