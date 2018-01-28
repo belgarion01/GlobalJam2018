@@ -5,10 +5,20 @@ using UnityEngine;
 public class ArrowController : MonoBehaviour {
 
 	public float moveSpeed;
-	public LaneController lane;
+	public LaneController lane {get; private set;}
 	public List<SpriteRenderer> renderers;
 
+	public void SetLane(LaneController newLane) {
+		lane = newLane;
+		int lineIndex = GameManager.Instance.lanes.IndexOf(lane);
+		
+		foreach (SpriteRenderer sprite in renderers) {
+			sprite.sortingOrder = lineIndex;
+		}
+	}
+
 	void Update() {
+		Debug.Log("there");
 		transform.position += new Vector3(moveSpeed * Time.deltaTime, 0, 0);
 		if (transform.position.x > 20) {
 			Destroy(gameObject);

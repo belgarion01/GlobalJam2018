@@ -156,10 +156,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 212630931552719920}
-  lane: {fileID: 0}
   isInvincible: 0
   destroysArrow: 1
-  additionalMoveSpeed: 2
+  additionalMoveSpeed: 1
   waitDurationBeforeFire: 1
   waitDurationAfterFire: 1
   waitDurationBeforeChangingLane: 1

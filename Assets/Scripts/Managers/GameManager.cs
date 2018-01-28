@@ -31,6 +31,10 @@ public class GameManager : MonoBehaviour {
 		InitializeGame();
     }
 
+	void Start() {
+		SoundManager.LoopMusic("MainTheme");
+	}
+
 	void Update() {
 
 		List<PlayerController> playersSwapping = new List<PlayerController>();
@@ -79,11 +83,14 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void SwapWeapon(PlayerController player1, PlayerController player2) {
+		SoundManager.PlaySFX("Swap");
 		Weapon temp = player1.activeWeapon;
 		player1.activeWeapon = player2.activeWeapon;
 		player2.activeWeapon = temp;
 		player1.isSwapping = false;
+		player1.RefreshAnimator();
 		player2.isSwapping = false;
+		player2.RefreshAnimator();
 	}
 
 	public static void Screenshake(float intensity, float duration) {

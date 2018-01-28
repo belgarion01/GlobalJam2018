@@ -13,6 +13,8 @@ public enum Weapon {
 
 public class PlayerController : MonoBehaviour {
 
+	public Animator animator;
+
 	public SpriteRenderer topSprite;
 	public SpriteRenderer bottomSprite;
 	public GameObject arrowPrefab;
@@ -47,6 +49,10 @@ public class PlayerController : MonoBehaviour {
 
 	[HideInInspector]
 	public bool isMoving = false;
+
+	void Awake() {
+		RefreshAnimator();
+	}
 
 	void Update() {
 		if (actualWeaponCooldown > 0) {
@@ -114,6 +120,9 @@ public class PlayerController : MonoBehaviour {
 		if (isSwapping) {
 			isSwapping = false;
 		}
+		if (animator) {
+			animator.SetTrigger("UseWeapon");
+		}
 		Vector3 weaponCooldown = GameManager.GetWeaponCooldown(activeWeapon);
 		actualWeaponCooldown = weaponCooldown.x + weaponCooldown.y + weaponCooldown.z;
 		switch (activeWeapon) {
@@ -165,33 +174,52 @@ public class PlayerController : MonoBehaviour {
 		bottomSprite.sortingOrder = GameManager.Instance.lanes.IndexOf(newLane);
 	}
 
-	void UseSword() { }
+	void UseSword() {
+		DOVirtual.DelayedCall(GameManager.GetWeaponCooldown(activeWeapon).x, () => {
+			SoundManager.PlaySFX("Sword");
+		});
+	}
 
-	void UseShield() { }
+	void UseShield() {
+		DOVirtual.DelayedCall(GameManager.GetWeaponCooldown(activeWeapon).x, () => {
+			SoundManager.PlaySFX("Shield");
+		});
+	 }
 
 	void UseBow() {
 		DOVirtual.DelayedCall(GameManager.GetWeaponCooldown(activeWeapon).x, () => {
 			ArrowController arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity, GameManager.Instance.dynamicObjects).GetComponent<ArrowController>();
-			arrow.lane = lane;
-			List<SpriteRenderer> renderers = arrow.renderers;
-			int lineIndex = GameManager.Instance.lanes.IndexOf(lane);
-			
-			foreach (SpriteRenderer sprite in renderers) {
-				sprite.sortingOrder = lineIndex;
-			}
+			arrow.SetLane(lane);
+			SoundManager.PlaySFX("Bow");
 		});
 	 }
 
-	void UsePill() { }
+	void UsePill() {
+		DOVirtual.DelayedCall(GameManager.GetWeaponCooldown(activeWeapon).x, () => {
+			SoundManager.PlaySFX("Pill");
+		});
+	}
 
 	void OnTriggerEnter2D(Collider2D collider) {
 		if (collider.tag.Contains("Ennemy") && collider.GetComponent<Enemy>().lane == lane) {
 			if (!isInvincible) {
 				GameManager.Instance.actualLives -= 1;
+				SoundManager.PlaySFX("Damage");
 				GameManager.Screenshake(0.3f, 1);
 				actualInvincibilityCooldown = invincibilityDuration;
 			}
 		}
+	}
+
+	public void RefreshAnimator() {
+		if (!animator) {
+			Debug.LogWarning("There is no animator (" + gameObject.name + ")");
+			return;
+		}
+		animator.SetBool("HasSword", activeWeapon == Weapon.WEAPON_SWORD);
+		animator.SetBool("HasShield", activeWeapon == Weapon.WEAPON_SHIELD);
+		animator.SetBool("HasPill", activeWeapon == Weapon.WEAPON_PILL);
+		animator.SetBool("HasBow", activeWeapon == Weapon.WEAPON_BOW);
 	}
 
 }

@@ -156,10 +156,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 212870109967212728}
-  lane: {fileID: 0}
   isInvincible: 0
   destroysArrow: 1
-  additionalMoveSpeed: 0
+  additionalMoveSpeed: 1
 --- !u!212 &212870109967212728
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -57,13 +57,8 @@ public class RangedGuyController : Enemy {
 
 	void Fire() {
 		Enemy projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity, GameManager.Instance.dynamicObjects).GetComponent<Enemy>();
-		projectile.lane = lane;
-		List<SpriteRenderer> renderers = projectile.renderers;
-		int lineIndex = GameManager.Instance.lanes.IndexOf(lane);
-		
-		foreach (SpriteRenderer sprite in renderers) {
-			sprite.sortingOrder = lineIndex;
-		}
+		projectile.SetLane(lane);
+		SoundManager.PlaySFX("Candy");
 	}
 
 	void ChangeLane() {
@@ -74,7 +69,7 @@ public class RangedGuyController : Enemy {
 		}
 
 		transform.DOMove(newLane.transform.position + new Vector3(20 - backwardDistance, transform.localScale.y/2, 0), changingLaneDuration);
-		lane = newLane;
+		SetLane(newLane);
 	}
 
 	void OnDestroy() {

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 61743236634653920}
   - component: {fileID: 114559447076029380}
   - component: {fileID: 212049780405440490}
+  - component: {fileID: 95048365200133450}
   m_Layer: 0
   m_Name: RangedGuyProjectile
   m_TagString: EnnemyProjectile
@@ -126,6 +127,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5392277, y: 0.49131107}
   m_EdgeRadius: 0
+--- !u!95 &95048365200133450
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1292217931844930}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114559447076029380
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -138,7 +156,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderers: []
-  lane: {fileID: 0}
   isInvincible: 0
   destroysArrow: 1
   additionalMoveSpeed: 3
@@ -171,8 +188,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1824631605
-  m_SortingLayer: 3
+  m_SortingLayerID: -1202393719
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8e46a6bf4c9c382449fa0a6096d85ca1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
