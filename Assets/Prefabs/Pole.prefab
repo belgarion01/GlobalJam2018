@@ -138,7 +138,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 212971609311399042}
-  - {fileID: 0}
   lane: {fileID: 0}
 --- !u!212 &212971609311399042
 SpriteRenderer:
