@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
+
 
 public enum Weapon {
 	WEAPON_NONE,
@@ -23,6 +25,8 @@ public class PlayerController : MonoBehaviour {
 	public KeyCode swapButton;
 	public KeyCode upButton;
 	public KeyCode downButton;
+
+	public Slider myslider;
 
 	[HideInInspector]
 	public LaneController lane;
@@ -195,6 +199,7 @@ public class PlayerController : MonoBehaviour {
 	 }
 
 	void UsePill() {
+		myslider.value += 20f;
 		DOVirtual.DelayedCall(GameManager.GetWeaponCooldown(activeWeapon).x, () => {
 			SoundManager.PlaySFX("Pill");
 		});

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -15,6 +16,13 @@ public class GameManager : MonoBehaviour {
 	public Vector3 shieldCooldown;
 	public Vector3 bowCooldown;
 	public Vector3 pillCooldown;
+
+	public Slider slider1;
+	public Slider slider2;
+	public Slider slider3;
+	public Slider slider4;
+
+
 
 	[HideInInspector]
 	public int actualLives;
@@ -37,6 +45,28 @@ public class GameManager : MonoBehaviour {
 
 	void Update() {
 
+		if (slider1.value <= 0) {
+			actualLives -= 1;
+			slider1.value = 50f;
+		}
+		if (slider2.value <= 0) {
+			actualLives -= 1;
+			slider2.value = 50f;
+		}
+		if (slider3.value <= 0) {
+			actualLives -= 1;
+			slider3.value = 50f;
+		}
+		if (slider4.value <= 0) {
+			actualLives -= 1;
+			slider4.value = 50f;
+		}
+
+		slider1.value -= 0.01f;
+		slider2.value -= 0.01f;
+		slider3.value -= 0.01f;
+		slider4.value -= 0.01f;
+
 		List<PlayerController> playersSwapping = new List<PlayerController>();
 
 		for (int i=0;i< players.Count; i++) {
@@ -56,6 +86,7 @@ public class GameManager : MonoBehaviour {
 			Debug.Log("dead");
 		}
 	}
+		
 
 	public void InitializeGame() {
 		actualLives = startingLivesAmount;
