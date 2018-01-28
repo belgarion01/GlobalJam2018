@@ -13,12 +13,11 @@ public class VraiBoutonCommande : MonoBehaviour {
 
 
 	void Update () {
-			if (hover) {
-				if (Input.GetMouseButtonDown (0)) {
-					Invoke ("RetourPrincipal", 0.1f);
-				}
+		if (hover) {
+			if (Input.GetMouseButtonDown (0)) {
+				Invoke ("RetourPrincipal", 0.1f);
 			}
-
+		}
 	}
 
 	void RetourPrincipal()

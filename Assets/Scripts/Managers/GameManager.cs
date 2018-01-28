@@ -64,8 +64,8 @@ public class GameManager : MonoBehaviour {
 			player.transform.position = lanes[i].transform.position + new Vector3(0, player.transform.localScale.y/2, 0);
 			player.lane = lanes[i];
 			lanes[i].player = player;
-			player.topSprite.sortingOrder = i;
-			player.bottomSprite.sortingOrder = i;
+			player.topSprite.sortingOrder = i*5-1;
+			player.bottomSprite.sortingOrder = i*5-2;
 		}
 	}
 

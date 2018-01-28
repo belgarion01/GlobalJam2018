@@ -21,6 +21,8 @@ public class RangedGuyController : Enemy {
 	public float backwardDistance = 5;
 	public float forwardDistance = 12;
 
+	public Animator animator;
+
 	public GameObject projectilePrefab;
 
 	private State state;
@@ -55,6 +57,13 @@ public class RangedGuyController : Enemy {
 		}
 	}
 
+	IEnumerator AIBehaviourDead() {
+		while (true) {
+			transform.position -= new Vector3((GameManager.Instance.scrollSpeed) * Time.deltaTime, 0, 0);
+			yield return null;
+		}
+	}
+
 	void Fire() {
 		Enemy projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity, GameManager.Instance.dynamicObjects).GetComponent<Enemy>();
 		projectile.SetLane(lane);
@@ -74,5 +83,16 @@ public class RangedGuyController : Enemy {
 
 	void OnDestroy() {
 		StopAllCoroutines();
+	}
+
+	public override void Die() {
+		if (!animator) {
+			Destroy(gameObject);
+			return;
+		}
+		StopAllCoroutines();
+		StartCoroutine(AIBehaviourDead());
+		GetComponent<BoxCollider2D>().enabled = false;
+		animator.SetBool("Dying", true);
 	}
 }

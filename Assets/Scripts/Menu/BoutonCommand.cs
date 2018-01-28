@@ -47,7 +47,6 @@ public class BoutonCommand : MonoBehaviour {
 	void OnMouseEnter()
 	{
 		hover = true;
-		Debug.Log ("ddd");
 	}
 
 	void OnMouseExit()

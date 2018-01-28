@@ -107,8 +107,11 @@ public class PlayerController : MonoBehaviour {
 		}
 		if (isUsingWeapon && activeWeapon == Weapon.WEAPON_SWORD) {
 			Collider2D coll = Physics2D.OverlapBox(transform.position + new Vector3(1, 0, 0), Vector2.one, 0);
-			if (coll && coll.tag == "Ennemy" && coll.GetComponent<Enemy>().lane == lane) {
-				Destroy(coll.gameObject);
+			if (coll && coll.tag == "Ennemy") {
+				Enemy enemy = coll.GetComponent<Enemy>();
+				if (enemy.lane == lane) {
+					enemy.Die();
+				}
 			}
 		}
 	}
@@ -170,8 +173,8 @@ public class PlayerController : MonoBehaviour {
 		oldLane.player = null;
 		newLane.player = this;
 		lane = newLane;
-		topSprite.sortingOrder = GameManager.Instance.lanes.IndexOf(newLane);
-		bottomSprite.sortingOrder = GameManager.Instance.lanes.IndexOf(newLane);
+		topSprite.sortingOrder = GameManager.Instance.lanes.IndexOf(newLane)*5-2;
+		bottomSprite.sortingOrder = GameManager.Instance.lanes.IndexOf(newLane)*5-1;
 	}
 
 	void UseSword() {

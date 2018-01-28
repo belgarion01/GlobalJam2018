@@ -18,7 +18,6 @@ public class ArrowController : MonoBehaviour {
 	}
 
 	void Update() {
-		Debug.Log("there");
 		transform.position += new Vector3(moveSpeed * Time.deltaTime, 0, 0);
 		if (transform.position.x > 20) {
 			Destroy(gameObject);
@@ -32,7 +31,7 @@ public class ArrowController : MonoBehaviour {
 				return;
 			}
 			if (!enemy.isInvincible) {
-				Destroy(collider.gameObject);
+				enemy.Die();
 			}
 			if (enemy.destroysArrow) {
 				Destroy(gameObject);

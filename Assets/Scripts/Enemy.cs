@@ -15,8 +15,12 @@ public abstract class Enemy : MonoBehaviour {
 		int lineIndex = GameManager.Instance.lanes.IndexOf(lane);
 		
 		foreach (SpriteRenderer sprite in renderers) {
-			sprite.sortingOrder = lineIndex;
+			sprite.sortingOrder = lineIndex*5;
 		}
+	}
+
+	public virtual void Die() {
+		Destroy(gameObject);
 	}
 
 }
