@@ -139,6 +139,8 @@ MonoBehaviour:
   renderers:
   - {fileID: 212971609311399042}
   lane: {fileID: 0}
+  isInvincible: 1
+  destroysArrow: 0
 --- !u!212 &212971609311399042
 SpriteRenderer:
   m_ObjectHideFlags: 1

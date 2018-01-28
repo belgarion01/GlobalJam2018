@@ -26,13 +26,7 @@ public class SpawnerController : MonoBehaviour {
 	void SpawnObject(GameObject prefab, LaneController lane) {
 		GameObject newObject = Instantiate(prefab, lane.transform.position + new Vector3(20, prefab.transform.localScale.y/2, 0), Quaternion.identity, GameManager.Instance.dynamicObjects);
 		Enemy enemy = newObject.GetComponent<Enemy>();
-		enemy.lane = lane;
-		List<SpriteRenderer> renderers = enemy.renderers;
-		int lineIndex = GameManager.Instance.lanes.IndexOf(lane);
-		
-		foreach (SpriteRenderer sprite in renderers) {
-			sprite.sortingOrder = lineIndex;
-		}
+		enemy.SetLane(lane);
 	}
 
 	GameObject GetSpawningPrefab() {

@@ -139,6 +139,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topSprite: {fileID: 212993167208394954}
   bottomSprite: {fileID: 212285147704827532}
+  arrowPrefab: {fileID: 1292217931844930, guid: f5dbef7755765f540bba6ecd7f4b359f,
+    type: 2}
   weaponButton: 0
   swapButton: 0
   upButton: 0
@@ -148,7 +150,7 @@ MonoBehaviour:
   movementDuration: 0.5
   invincibilityDuration: 1.5
   isSwapping: 0
-  isInvincible: 0
+  isUsingWeapon: 0
   isMoving: 0
 --- !u!212 &212285147704827532
 SpriteRenderer:

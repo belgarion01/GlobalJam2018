@@ -36,8 +36,6 @@ GameObject:
   - component: {fileID: 4743897840564170}
   - component: {fileID: 61308009509553262}
   - component: {fileID: 114435536053730324}
-  - component: {fileID: 212179302783679672}
-  - component: {fileID: 95347886734275670}
   m_Layer: 0
   m_Name: NormalGuy
   m_TagString: Ennemy
