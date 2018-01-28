@@ -36,6 +36,7 @@ GameObject:
   - component: {fileID: 4743897840564170}
   - component: {fileID: 61308009509553262}
   - component: {fileID: 114435536053730324}
+  - component: {fileID: 212179302783679672}
   m_Layer: 0
   m_Name: NormalGuy
   m_TagString: Ennemy
@@ -173,11 +174,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 212870109967212728}
-  lane: {fileID: 0}
+  isInvincible: 0
+  destroysArrow: 1
   additionalMoveSpeed: 0
 --- !u!212 &212179302783679672
 SpriteRenderer:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1394628850219116}
