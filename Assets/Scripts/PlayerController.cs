@@ -173,8 +173,8 @@ public class PlayerController : MonoBehaviour {
 		oldLane.player = null;
 		newLane.player = this;
 		lane = newLane;
-		topSprite.sortingOrder = GameManager.Instance.lanes.IndexOf(newLane)*5-2;
-		bottomSprite.sortingOrder = GameManager.Instance.lanes.IndexOf(newLane)*5-1;
+		topSprite.sortingOrder = GameManager.Instance.lanes.IndexOf(newLane)*5-1;
+		bottomSprite.sortingOrder = GameManager.Instance.lanes.IndexOf(newLane)*5-2;
 	}
 
 	void UseSword() {

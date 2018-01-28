@@ -11,6 +11,8 @@ public class SpawnerController : MonoBehaviour {
 	public GameObject rangedGuyPrefab;
 	public GameObject polePrefab;
 
+	private float actualDiminution = 0;
+
 	void Awake() {
 		actualCooldown = Random.Range(spawnCooldownMinMax.x, spawnCooldownMinMax.y);
 	}
@@ -19,7 +21,8 @@ public class SpawnerController : MonoBehaviour {
 		actualCooldown -= Time.deltaTime;
 		if (actualCooldown <= 0) {
 			SpawnObject(GetSpawningPrefab(), GetSpawnPosition());
-			actualCooldown = Random.Range(spawnCooldownMinMax.x, spawnCooldownMinMax.y);
+			actualCooldown = Mathf.Max(Random.Range(spawnCooldownMinMax.x, spawnCooldownMinMax.y) - actualDiminution, 1);
+			actualDiminution -= 0.05f;
 		}
 	}
 

@@ -27,5 +27,4 @@ public class NormalGuyController : Enemy {
 		animator.SetBool("Dying", true);
 		GetComponent<BoxCollider2D>().enabled = false;
 	}
-
 }
