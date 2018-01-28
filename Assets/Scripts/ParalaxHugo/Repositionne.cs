@@ -22,6 +22,5 @@ public class Repositionne : MonoBehaviour {
 		if (distance > distanceCible) {
 			transform.position += new Vector3 (distanceTP, 0f, 0f);
 		}
-		Debug.Log (distance);
 	}
 }

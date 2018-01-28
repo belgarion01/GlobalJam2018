@@ -10,11 +10,11 @@ public class GameManager : MonoBehaviour {
 	public Transform dynamicObjects;
 	public float scrollSpeed;
 	public int startingLivesAmount;
-
-	public Vector2 swordCooldown;
-	public Vector2 shieldCooldown;
-	public Vector2 bowCooldown;
-	public Vector2 pillCooldown;
+	public CameraController cam;
+	public Vector3 swordCooldown;
+	public Vector3 shieldCooldown;
+	public Vector3 bowCooldown;
+	public Vector3 pillCooldown;
 
 	[HideInInspector]
 	public int actualLives;
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	public static Vector2 GetWeaponCooldown(Weapon weapon) {
+	public static Vector3 GetWeaponCooldown(Weapon weapon) {
 		if (!Instance) {
 			return Vector2.zero;
 		}
@@ -84,6 +84,13 @@ public class GameManager : MonoBehaviour {
 		player2.activeWeapon = temp;
 		player1.isSwapping = false;
 		player2.isSwapping = false;
+	}
+
+	public static void Screenshake(float intensity, float duration) {
+		if (!Instance || !Instance.cam) {
+			return;
+		}
+		Instance.cam.Screenshake(intensity, duration);
 	}
 
 }

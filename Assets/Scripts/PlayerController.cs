@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour {
 
 	public SpriteRenderer topSprite;
 	public SpriteRenderer bottomSprite;
+	public GameObject arrowPrefab;
 
 	public KeyCode weaponButton;
 	public KeyCode swapButton;
@@ -50,7 +51,12 @@ public class PlayerController : MonoBehaviour {
 	void Update() {
 		if (actualWeaponCooldown > 0) {
 			actualWeaponCooldown = Mathf.Max(0, actualWeaponCooldown - Time.deltaTime);
-			if (actualWeaponCooldown <= GameManager.GetWeaponCooldown(activeWeapon).y) {
+			Vector3 weaponCooldown = GameManager.GetWeaponCooldown(activeWeapon);
+			isUsingWeapon = false;
+			if (actualWeaponCooldown <= weaponCooldown.y + weaponCooldown.z) {
+				isUsingWeapon = true;
+			}
+			if (actualWeaponCooldown <= weaponCooldown.z) {
 				isUsingWeapon = false;
 			}
 		}
@@ -108,8 +114,8 @@ public class PlayerController : MonoBehaviour {
 		if (isSwapping) {
 			isSwapping = false;
 		}
-		isUsingWeapon = true;
-		actualWeaponCooldown = GameManager.GetWeaponCooldown(activeWeapon).x + GameManager.GetWeaponCooldown(activeWeapon).y;
+		Vector3 weaponCooldown = GameManager.GetWeaponCooldown(activeWeapon);
+		actualWeaponCooldown = weaponCooldown.x + weaponCooldown.y + weaponCooldown.z;
 		switch (activeWeapon) {
 			case Weapon.WEAPON_SWORD: UseSword(); break;
 			case Weapon.WEAPON_SHIELD: UseShield(); break;
@@ -163,7 +169,18 @@ public class PlayerController : MonoBehaviour {
 
 	void UseShield() { }
 
-	void UseBow() { }
+	void UseBow() {
+		DOVirtual.DelayedCall(GameManager.GetWeaponCooldown(activeWeapon).x, () => {
+			ArrowController arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity, GameManager.Instance.dynamicObjects).GetComponent<ArrowController>();
+			arrow.lane = lane;
+			List<SpriteRenderer> renderers = arrow.renderers;
+			int lineIndex = GameManager.Instance.lanes.IndexOf(lane);
+			
+			foreach (SpriteRenderer sprite in renderers) {
+				sprite.sortingOrder = lineIndex;
+			}
+		});
+	 }
 
 	void UsePill() { }
 
@@ -171,6 +188,7 @@ public class PlayerController : MonoBehaviour {
 		if (collider.tag.Contains("Ennemy") && collider.GetComponent<Enemy>().lane == lane) {
 			if (!isInvincible) {
 				GameManager.Instance.actualLives -= 1;
+				GameManager.Screenshake(0.3f, 1);
 				actualInvincibilityCooldown = invincibilityDuration;
 			}
 		}

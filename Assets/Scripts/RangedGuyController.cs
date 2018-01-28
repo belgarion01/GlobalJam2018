@@ -58,6 +58,12 @@ public class RangedGuyController : Enemy {
 	void Fire() {
 		Enemy projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity, GameManager.Instance.dynamicObjects).GetComponent<Enemy>();
 		projectile.lane = lane;
+		List<SpriteRenderer> renderers = projectile.renderers;
+		int lineIndex = GameManager.Instance.lanes.IndexOf(lane);
+		
+		foreach (SpriteRenderer sprite in renderers) {
+			sprite.sortingOrder = lineIndex;
+		}
 	}
 
 	void ChangeLane() {
